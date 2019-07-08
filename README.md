@@ -1,6 +1,6 @@
 # WEB-KELOMPOK4
 
-Tugas Besar PKelompok Pemrograman Berbasis Web 3 LPKIA
+Tugas Besar Kelompok Pemrograman Berbasis Web 3 LPKIA
 
 # Anggota
 1. Wiby Putra Adyan Ramdhani
