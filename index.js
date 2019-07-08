@@ -8,6 +8,7 @@ app.use(bodyParset.json());
 
 const homeRouter = require('./routes/home');
 const productRouter = require('./routes/product');
+const userRouter = require('./routes/user');
 
 const sequelize = require('./configs/sequelize');
 
@@ -15,6 +16,7 @@ const Product = require('./models/product');
 
 app.use(homeRouter);
 app.use('/product', productRouter);
+app.use('/user', userRouter);
 
 app.listen(3000, () => {
     console.log('server started');

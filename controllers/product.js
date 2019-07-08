@@ -1,6 +1,19 @@
 const Product = require('../models/product');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
-module.exports.getIndexProduct = (req, res) => {}
+module.exports.getIndexProduct = (req, res) => {
+    jwt.verify(req.token, pTrocess.env.SECREKEY, (error, authData) => {
+        if (error) {
+            res.sendStatus(403);
+        } else {
+            res.json({
+                message: 'OK',
+                authData: authData
+            })
+        }
+    })
+}
 
 // Create Product
 module.exports.postProduct = (req, res) => {
