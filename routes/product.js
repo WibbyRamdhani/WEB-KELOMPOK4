@@ -5,7 +5,7 @@ const router = express.Router();
 const productController = require('../controllers/product');
 const auth = require('../configs/auth');
 
-router.get('/', auth.verifyToken, productController.getIndexProduct);
+router.get('/hallo', auth.verifyToken, productController.getIndexProduct);
 
 router.post('/', productController.postProduct);
 
