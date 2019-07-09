@@ -49,11 +49,11 @@ module.exports.postLogin = (req, res) => {
                     id: user.get('id')
                 }, process.env.SECRETKEY, (error, token) => {
                     res.json({
-                        token
+                        token: token
                     });
                 })
             } else {
-                res.status(400).send('Wrong Password')
+                res.status(400).send('Wrong Password');
             }
         })
     })

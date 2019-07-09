@@ -3,9 +3,11 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
 module.exports.getIndexProduct = (req, res) => {
-    jwt.verify(req.token, pTrocess.env.SECREKEY, (error, authData) => {
+    jwt.verify(req.token, process.env.SECRETKEY, (error, authData) => {
         if (error) {
-            res.sendStatus(403);
+            res.json({
+                message: error
+            });
         } else {
             res.json({
                 message: 'OK',
