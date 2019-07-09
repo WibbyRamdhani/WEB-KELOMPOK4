@@ -8,11 +8,13 @@ app.use(bodyParser.json());
 
 const homeRouter = require('./routes/home');
 const userRouter = require('./routes/user');
+const booksRouter = require('./routes/books');
 
 const sequelize = require('./configs/sequelize');
 
 app.use("/", homeRouter);
 app.use('/user', userRouter);
+app.use('/books', booksRouter);
 
 app.listen(3000, () => {
     console.log('Server nyala bro');
