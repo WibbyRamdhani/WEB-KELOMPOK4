@@ -22,7 +22,18 @@ module.exports.postRegister = (req, res) => {
             }
         })
         .then((user) => {
-            res.json(user);
+            if (user[1] !== false) {
+                res.json({
+                    message: "Email sudah terdaftar",
+                    data: user[1]
+                });
+                // res.send("Email sudah terdaftar");
+            } else {
+                res.json({
+                    message: "Register berhasil",
+                    data: user[1]
+                });
+            }
         })
         .catch((error) => {
             console.log(error);
