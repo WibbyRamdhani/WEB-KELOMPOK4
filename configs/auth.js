@@ -7,8 +7,8 @@ module.exports.verifyToken = (req, res, next) => {
         req.token = bearerToken;
         next();
     } else {
-        res.sendStatus(403).json({
-            message: "error auth"
-        });
+        res.status(403).send(
+            "Anda Harus Login Terlebih Dahulu"
+        );
     }
 }
