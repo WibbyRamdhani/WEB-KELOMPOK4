@@ -20,6 +20,18 @@ module.exports.getIndexBooks = (req, res) => {
                 .catch((error) => {
                     console.log(error);
                 })
+
         }
+
     })
+    Books.crete({
+        judul :req.body.judul,
+        price:req,body,price
+
+    }).then((Books)=>{
+        res.json(Books);
+    }).catch((error)=>{
+        throw error;
+    })
+    
 }
