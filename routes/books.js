@@ -10,4 +10,8 @@ router.post('/',booksController.postbooks)
 router.put('/:id',booksController.postbooks)
 
 
+router.post('/', productController.postProduct);
+router.put('/:id', productController.putProduct);
+router.delete('/:id', productController.deleteProduct);
+
 module.exports = router;
