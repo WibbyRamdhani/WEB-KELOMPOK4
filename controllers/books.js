@@ -28,9 +28,11 @@ module.exports.getIndexBooks = (req, res) => {
         judul :req.body.judul,
         price:req,body,price
 
-    }).then((Books)=>{
+        })
+        .then((Books)=>{
         res.json(Books);
-    }).catch((error)=>{
+        })
+        .catch((error)=>{
         throw error;
     })
     
