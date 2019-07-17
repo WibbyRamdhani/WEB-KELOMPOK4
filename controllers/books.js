@@ -9,64 +9,154 @@ module.exports.getIndexBooks = (req, res) => {
                 message: error
             });
         } else {
-            Books.findAll({
-                    where: {
-                        id: req.params.id
+            Books.findAll()
+                .then((books) => {
+                    if (!books) {
+                        res.json({
+                            message: "Data buku tidak ada"
+                        });
+                    } else {
+                        res.json({
+                            message: "Data buku ada",
+                            data: books
+                        });
                     }
-                })
-                .then((product) => {
-                    res.json(product);
                 })
                 .catch((error) => {
                     console.log(error);
                 })
-
         }
-
     })
-    Books.crete({
-        judul :req.body.judul,
-        price:req,body,price
-
-        })
-        .then((Books)=>{
-        res.json(Books);
-        })
-        .catch((error)=>{
-        throw error;
-    })
-<<<<<<< HEAD
-    
-=======
 }
-module.exports.postProduct = (req, res) => {
-    let values = {
-         name: req.body.name,
-         price: req.body.price
+
+module.exports.getOneBook = (req, res) => {
+    jwt.verify(req.token, process.env.SECRETKEY, (error, authData) => {
+        if (error) {
+            res.json({
+                message: error
+            });
+        } else {
+            Books.findOne({
+                    where: {
+                        id: req.params.id
+                    }
+                })
+                .then((books) => {
+                    res.json(books);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         }
-    
-     Product
-        .create(values)
-         .then((product) => {
-             res.json(product);
-         }).catch((error) => {
-             console.log(error);
-          })
- }
+    })
+}
 
-module.exports.deleteProduct = (req, res) => {
-    Product
-        .destroy({
-            where: {
-                id: req.params.id
+// Create Books
+module.exports.postBooks = (req, res) => {
+    let values = {
+        judul: req.body.judul,
+        pengarang: req.body.pengarang,
+        penerbit: req.body.penerbit,
+        tahun_terbit: req.body.tahun_terbit,
+        harga: req.body.harga
+    }
+    jwt.verify(req.token, process.env.SECRETKEY, (error, authData) => {
+        if (error) {
+            res.json({
+                message: error
+            });
+        } else {
+            if (authData.hakakses == 'admin') {
+                Books.
+                create(values)
+                    .then(books => {
+                        res.json({
+                            message: "Data Berhasil di simpan",
+                            data: books
+                        });
+                    }).catch((error) => {
+                        console.log(error);
+                    })
+
+            } else {
+                res.status(403).send("Anda tidak bisa input data")
             }
-        })
-        .then((product) => {
-            res.json(product);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        }
+    })
+}
 
->>>>>>> b3f2517bd136ce0d24ce73a0b3a82ffb96550491
+// Update Books
+module.exports.putBooks = (req, res) => {
+    let values = {
+        judul: req.body.judul,
+        pengarang: req.body.pengarang,
+        penerbit: req.body.penerbit,
+        tahun_terbit: req.body.tahun_terbit,
+        harga: req.body.harga
+    }
+
+    let conditions = {
+        where: {
+            id: req.params.id
+        }
+    }
+    jwt.verify(req.token, process.env.SECRETKEY, (error, authData) => {
+        if (error) {
+            res.json({
+                message: error
+            });
+        } else {
+            if (authData.hakakses == 'admin') {
+                Books
+                    .update(values, conditions)
+                    .then((books) => {
+                        res.json({
+                            message: "Data Berhasil di rubah",
+                            data: books
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            } else {
+                res.status(403).send("Anda tidak bisa input data")
+            }
+        }
+    })
+}
+
+// Delete Books
+module.exports.deleteBooks = (req, res) => {
+    jwt.verify(req.token, process.env.SECRETKEY, (error, authData) => {
+        if (error) {
+            res.json({
+                message: error
+            });
+        } else {
+            if (authData.hakakses == 'admin') {
+                Books
+                    .destroy({
+                        where: {
+                            id: req.params.id
+                        }
+                    })
+                    .then((books) => {
+                        if (!books) {
+                            res.json({
+                                message: "Data tidak ada"
+                            });
+                        } else {
+                            res.json({
+                                message: "Data berhasil di hapus"
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            } else {
+                res.status(403).send("Anda tidak bisa hapus data")
+            }
+        }
+    })
 }

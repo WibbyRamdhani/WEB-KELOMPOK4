@@ -24,13 +24,12 @@ module.exports.postRegister = (req, res) => {
         .then((user) => {
             if (user[1] !== false) {
                 res.json({
-                    message: "Email sudah terdaftar",
+                    message: "Register berhasil",
                     data: user[1]
                 });
-                // res.send("Email sudah terdaftar");
             } else {
                 res.json({
-                    message: "Register berhasil",
+                    message: "Email sudah terdaftar",
                     data: user[1]
                 });
             }
@@ -57,7 +56,8 @@ module.exports.postLogin = (req, res) => {
 
             if (isMatch) {
                 jwt.sign({
-                    id: user.get('id')
+                    id: user.get('id'),
+                    hakakses: user.get('roles')
                 }, process.env.SECRETKEY, (error, token) => {
                     res.json({
                         token: token
